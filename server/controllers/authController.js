@@ -5,7 +5,6 @@ import { User } from '../models/User.js';
 import transporter from '../config/nodemailer.js';
 import { PASSWORD_RESET_TEMPLATE, welcomeEmailTemplate } from '../config/emailTemplate.js';
 import crypto from "crypto";
-import axios from "axios";
 
 export const googleLogin = (req, res) =>{
     res.send("Redirecting to Google...");
@@ -17,7 +16,7 @@ export const googleCallback = (req, res)=>{
     const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
     res.cookie("token", token, {
         httpOnly: true,
-        secure: false,//process.env.NODE_ENV === "production",
+        secure: false,
         sameSite: "Lax",
         maxAge: 24 * 60 * 60 * 1000,
     });
@@ -28,15 +27,9 @@ export const loginFailure = (req, res) => {
   res.status(401).json({ success: false, message: "Failed to authenticate with Google 😢" });
 };
 
-
-
-// ================= Email/Password Signup =================
 export const signup = async (req, res) => {
-    // console.log("REQ BODY:", req.body);
     const { name, email, password } = req.body;
-
   try {
-    
     const existingUser = await User.findOne({ email });
     if (existingUser)
       return res.status(400).json({ success: false, message: "User already exists" });
@@ -46,69 +39,35 @@ export const signup = async (req, res) => {
     const user = await User.create({ name, email, password: hashedPassword });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
-
-    // Store token in HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,//process.env.NODE_ENV === "production",   // false for localhost
-      sameSite: "Lax",    // Lax for localhost
+      secure: false,
+      sameSite: "Lax",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    // const mailOption = {
-    //   from: process.env.SENDER_EMAIL,
-    //   to: email,
-    //   subject : 'welcome to Worksphere',
-    //   text: `welcome to my website. Your account has been created with email id : ${email}`
-    // }
-
-    // await transporter.sendMail(mailOption);
-
-    // await transporter.sendMail({
-    //   from: process.env.SENDER_EMAIL,// `"Worksphere" <${process.env.SENDER_EMAIL}>`,
-    //   to: user.email,
-    //   subject: `Welcome to Worksphere 🎉`,
-      // html: welcomeEmailTemplate({
-      //   websiteName: "Worksphere",
-      //   websiteLogo: `${process.env.BASE_URL}/public/images/logo.jpeg`,
-      //   userName: user.name || "User",
-      //   loginUrl: `${process.env.BASE_URL}/login`
-      // })
-    // });
-
-      await axios.post(
-        "https://api.brevo.com/v3/smtp/email",
-        {
-          sender: { name: "Worksphere", email: process.env.SENDER_EMAIL },
-          to: [{ email: user.email }],
-          subject: "Welcome 🎉",
-          htmlContent: welcomeEmailTemplate({
-            websiteName: "Worksphere",
-            websiteLogo: `${process.env.BASE_URL}/public/images/logo.jpeg`,
-            userName: user.name || "User",
-            loginUrl: `${process.env.BASE_URL}/login`
-          })
-        },
-        {
-          headers: {
-            "api-key": process.env.BREVO_API_KEY,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-
     res.status(201).json({ success: true, user });
+
+    await transporter.sendMail({
+      from: `"Worksphere" <${process.env.SENDER_EMAIL}>`,
+      to: user.email,
+      subject: `Welcome to Worksphere 🎉`,
+      html: welcomeEmailTemplate({
+        websiteName: "Worksphere",
+        websiteLogo: `${process.env.BASE_URL}/public/images/logo.jpeg`,
+        userName: user.name || "User",
+        loginUrl: `${process.env.BASE_URL}/login`
+      })
+    });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Signup failed" });
   }
 };
 
-// ================= Email/Password Login =================
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email });
     if (!user)
@@ -122,12 +81,10 @@ export const login = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid credentials" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
-
-    // Store JWT as cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,   //process.env.NODE_ENV === "production", // "Production"
-      sameSite: "Lax", // "None"
+      secure: false,  
+      sameSite: "Lax",
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -162,19 +119,17 @@ export const sendResetOtp = async (req, res) => {
       from: `"Worksphere" <${process.env.SENDER_EMAIL}>`,
       to: email,
       subject: "Password Reset OTP",
-      // html: `<h2>Your OTP is ${otp}</h2><p>Valid for 15 minutes</p>`,
       html: PASSWORD_RESET_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email)
     });
 
-    req.session.email = email;       // save for next steps
-    req.session.otpVerified = false; // flag
+    req.session.email = email;       
+    req.session.otpVerified = false;
     res.render("auth/reset-password", { step: "otp", email });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
 };
 
-// 2️⃣ Verify OTP
 export const verifyResetOtp = async (req, res) => {
   const { email } = req.session;
   const { otp } = req.body;
@@ -197,7 +152,6 @@ export const verifyResetOtp = async (req, res) => {
   }
 };
 
-// 3️⃣ Reset Password
 export const resetPassword = async (req, res) => {
   const { email, otpVerified } = req.session;
   const { newPassword } = req.body;
@@ -214,7 +168,7 @@ export const resetPassword = async (req, res) => {
     user.resetOtpExpireAt = undefined;
     await user.save();
 
-    req.session.destroy(); // clear session
+    req.session.destroy();
     res.redirect("/login");
   } catch (error) {
     res.json({ success: false, message: error.message });

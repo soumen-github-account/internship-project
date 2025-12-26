@@ -3,9 +3,6 @@ import cloudinary from "../config/cloudinary.js";
 import { Application } from "../models/Application.js";
 import { Job } from "../models/Job.js";
 
-/* =========================
-   CLOUDINARY UPLOAD HELPER
-========================= */
 export const uploadToCloudinary = (buffer, mimetype) => {
   return new Promise((resolve, reject) => {
     const resourceType =
@@ -26,28 +23,19 @@ export const uploadToCloudinary = (buffer, mimetype) => {
   });
 };
 
-/* =========================
-   APPLY FOR JOB CONTROLLER
-========================= */
 export const applyForJob = async (req, res) => {
   try {
     const { jobId, fullName, email, phone, coverLetter } = req.body;
     const file = req.file;
 
-    /* ---------- VALIDATION ---------- */
     if (!jobId || !fullName || !email || !phone) {
-      return res.status(400).json({
-        message: "All required fields must be filled",
-      });
+      return res.status(400).json({message: "All required fields must be filled"});
     }
 
     if (!file) {
-      return res.status(400).json({
-        message: "Resume is required",
-      });
+      return res.status(400).json({message: "Resume is required"});
     }
 
-    /* ---------- FIND JOB ---------- */
     const job = await Job.findOne({ jobId });
     if (!job) {
       return res.status(404).json({
@@ -55,45 +43,34 @@ export const applyForJob = async (req, res) => {
       });
     }
 
-    /* ---------- PREVENT DUPLICATE APPLY ---------- */
-    const alreadyApplied = await Application.findOne({
-      user: req.user._id,
-      job: job._id,
-    });
+    const alreadyApplied = await Application.findOne({user: req.user._id, job: job._id});
 
     if (alreadyApplied) {
-      return res.status(400).json({
-        message: "You have already applied for this job",
-      });
+      return res.status(400).json({message: "You have already applied for this job"});
     }
 
-    /* ---------- UPLOAD RESUME ---------- */
     const uploaded = await uploadToCloudinary(
       file.buffer,
       file.mimetype
     );
 
-    /* ---------- CREATE APPLICATION ---------- */
     const application = await Application.create({
       user: req.user._id,
       job: job._id,
       fullName,
       email,
-      phone: phone.toString(), // safer than Number
+      phone: phone.toString(), 
       resume: uploaded.secure_url,
       coverLetter,
     });
 
-    /* ---------- UPDATE JOB ---------- */
     job.applicants = (job.applicants || 0) + 1;
 
-    // 🔴 ensure this field name exists in Job schema
     job.applications = job.applications || [];
     job.applications.push(application._id);
 
     await job.save();
 
-    /* ---------- RESPONSE ---------- */
     res.status(201).json({
       success: true,
       message: "Applied successfully",

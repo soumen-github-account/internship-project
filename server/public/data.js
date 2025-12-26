@@ -23,26 +23,26 @@
 //     applicants: 924,
 //     openings: 80,
 //     aboutWork: [
-//       "Create graphics, illustrations, and visual content for digital and print media",
-//       "Collaborate with marketing, content, and development teams",
-//       "Brainstorm and conceptualize new design ideas",
-//       "Raise funds for social causes"
+    //   "Create graphics, illustrations, and visual content for digital and print media",
+    //   "Collaborate with marketing, content, and development teams",
+    //   "Brainstorm and conceptualize new design ideas",
+    //   "Raise funds for social causes"
 //     ],
 //     skillsRequired: [
-//       "English Proficiency (Spoken)",
-//       "Graphic Design",
-//       "Creativity"
+    //   "English Proficiency (Spoken)",
+    //   "Graphic Design",
+    //   "Creativity"
 //     ],
 //     perks: [
-//       "Certificate",
-//       "Letter of recommendation",
-//       "Flexible work hours"
+    //   "Certificate",
+    //   "Letter of recommendation",
+    //   "Flexible work hours"
 //     ],
 //     whoCanApply: [
-//       "Available for work from home internship",
-//       "Can start between 16 Dec 2025 and 20 Jan 2026",
-//       "Available for 2 weeks",
-//       "Relevant skills and interest"
+    //   "Available for work from home internship",
+    //   "Can start between 16 Dec 2025 and 20 Jan 2026",
+    //   "Available for 2 weeks",
+    //   "Relevant skills and interest"
 //     ],
 //     aboutCompany: {
 //       description: "InAmigos Foundation is a Section 8 non-profit organization with 200+ volunteers across India.",

@@ -30,7 +30,7 @@ const applicationSchema = new mongoose.Schema(
     },
 
     resume: {
-      type: String, // resume file URL
+      type: String,
       required: true,
     },
 
@@ -47,7 +47,4 @@ const applicationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Application = mongoose.model(
-  "Application",
-  applicationSchema
-);
+export const Application = mongoose.model("Application", applicationSchema);

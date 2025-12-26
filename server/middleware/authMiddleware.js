@@ -15,7 +15,7 @@ export const protect = async (req, res, next) => {
     if (!user)
       return res.status(404).json({ success: false, message: "User not found" });
 
-    req.user = user; // IMPORTANT
+    req.user = user;
     next();
   } catch (err) {
     res.status(401).json({ success: false, message: "Invalid token" });

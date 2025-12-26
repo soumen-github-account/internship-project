@@ -1,14 +1,9 @@
 
-// 🔹 SHARED DOM REFERENCES (DECLARE ONCE)
 window.jobsContainer = document.getElementById("jobsContainer");
 window.categoryContainer = document.getElementById("categoryOptions");
 
-// 🔹 SHARED STATE
 window.jobs = [];
 
-/* ===============================
-   RENDER JOBS
-================================ */
 window.renderJobs = function (list) {
   if (!jobsContainer) return;
 
@@ -53,9 +48,6 @@ window.renderJobs = function (list) {
   });
 };
 
-/* ===============================
-   RENDER CATEGORIES
-================================ */
 window.renderCategories = function (jobs) {
   if (!categoryContainer) return;
 
@@ -79,11 +71,6 @@ window.renderCategories = function (jobs) {
     categoryContainer.appendChild(chip);
   });
 };
-
-// // /* ===== NAV ===== */
-// function openJob(jobId) {
-//   window.location.href = `/job.html?id=${jobId}`;
-// }
 
 function applyJob(jobId) {
   window.location.href = `/apply.html?jobId=${jobId}`;

@@ -9,7 +9,6 @@ const jobId = params.get("jobId");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // 🔄 Start loading
   submitBtn.disabled = true;
   btnText.textContent = "Submitting...";
   loader.classList.remove("hidden");
@@ -18,12 +17,7 @@ form.addEventListener("submit", async (e) => {
   formData.append("jobId", jobId);
 
   try {
-    const res = await fetch("/api/user/apply", {
-      method: "POST",
-      body: formData,
-      credentials: "include",
-    });
-
+    const res = await fetch("/api/user/apply", {method: "POST", body: formData, credentials: "include"});
     const data = await res.json();
 
     if (!res.ok) {
@@ -37,7 +31,6 @@ form.addEventListener("submit", async (e) => {
     console.error(err);
     alert(err.message || "Something went wrong");
 
-    // ❌ Stop loading on error
     submitBtn.disabled = false;
     btnText.textContent = "Submit Application";
     loader.classList.add("hidden");

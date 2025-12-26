@@ -1,11 +1,8 @@
 import { Application } from "../models/Application.js";
 import { Subscriber } from "../models/Subcribers.js";
 
-export const getUser = async (req, res) => {
-    res.status(200).json({
-    success: true,
-    user: req.user,
-  });
+export const getUser = async (req, res) => { 
+  res.status(200).json({success: true, user: req.user});
 };
 
 export const renderMyApplications = async (req, res) => {
@@ -14,10 +11,7 @@ export const renderMyApplications = async (req, res) => {
       .populate("job")
       .sort({ createdAt: -1 });
 
-    res.render("userView/myApplications", {
-      user: req.user,
-      applications,
-    });
+    res.render("userView/myApplications", {user: req.user, applications});
 
   } catch (err) {
     console.error(err);

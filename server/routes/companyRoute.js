@@ -15,15 +15,7 @@ companyRouter.get("/login", (req, res) => {
 companyRouter.post("/login", companyLogin);
 companyRouter.post("/logout", AdminProtect, admin_logout);
 
-companyRouter.post(
-  "/signup",
-  upload.single("logo"),
-  companySignup
-);
-
-// companyRouter.get("/dashboard", AdminProtect, (req, res) => {
-//   res.render("companyView/dashboard");
-// });
+companyRouter.post("/signup", upload.single("logo"), companySignup);
 
 companyRouter.get("/post-job", (req, res) => {
   res.render("companyView/post-job");
@@ -35,31 +27,13 @@ companyRouter.get("/jobs/:jobId", getJobById);
 
 companyRouter.get("/get-all-jobs", AdminProtect, getAllJobsByCompanyId);
 companyRouter.get("/dashboard", AdminProtect, getCompanyApplications);
-// routes/companyRoute.js
-companyRouter.patch(
-  "/applications/:id/status",
-  AdminProtect,
-  updateApplicationStatus
-);
 
-companyRouter.get(
-  "/jobs/:jobId/edit",
-  AdminProtect,
-  editJobPage
-);
+companyRouter.patch("/applications/:id/status", AdminProtect, updateApplicationStatus);
 
-companyRouter.post(
-  "/jobs/:jobId/edit",
-  AdminProtect,
-  upload.single("companyLogo"),
-  updateJob
-);
+companyRouter.get("/jobs/:jobId/edit", AdminProtect, editJobPage);
 
-companyRouter.post(
-  "/jobs/:jobId/delete",
-  AdminProtect,
-  deleteJob
-)
+companyRouter.post("/jobs/:jobId/edit", AdminProtect, upload.single("companyLogo"), updateJob);
 
+companyRouter.post("/jobs/:jobId/delete", AdminProtect, deleteJob);
 
 export default companyRouter;

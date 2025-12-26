@@ -57,7 +57,6 @@ export const companySignup = async (req, res) => {
       logo: uploaded.secure_url
     });
 
-    // After signup → redirect to login
     res.redirect("/company/signup");
 
   } catch (error) {
@@ -69,7 +68,6 @@ export const companySignup = async (req, res) => {
 export const companyLogin = async (req, res) => {
   try {
     const { companyId, password } = req.body;
-    console.log("BODY RECEIVED:", req.body); // Debug
 
     const company = await Company.findOne({ companyId });
     if(!company) return res.json({ success: false, message: "Company not found" });
@@ -102,7 +100,6 @@ export const admin_logout = (req, res) => {
 
 export const createJob = async (req, res) => {
   try {
-    //  Upload logo to Cloudinary
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream({ folder: "company_logos" }, (error, uploadResult) => {
@@ -112,7 +109,6 @@ export const createJob = async (req, res) => {
         .end(req.file.buffer);
     });
 
-    // Destructure form fields
     const {
       jobId,
       title,
@@ -145,7 +141,6 @@ export const createJob = async (req, res) => {
       companyDescription,
     } = req.body;
 
-    // Create Job
     const job = await Job.create({
       companyId: req.company.companyId,
       jobId,
@@ -213,7 +208,7 @@ export const createJob = async (req, res) => {
           aboutWork: job.aboutWork,
           skills: job.skillsRequired,
           perks: job.perks,
-          applyUrl: `https://yourdomain.com/jobs/${job._id}`
+          applyUrl: `/jobs/${job._id}`
         })
       });
     }
@@ -231,7 +226,7 @@ export const createJob = async (req, res) => {
 export const getAllJobs = async (req, res) => {
   try {
     const jobs = await Job.find()
-      .sort({ createdAt: -1 }); // latest jobs first
+      .sort({ createdAt: -1 }); 
 
     res.status(200).json({
       success: true,
@@ -266,10 +261,6 @@ export const getJobById = async (req, res) => {
     const different = today - postedDate;
     const postedDaysAgo = Math.floor(different / (1000 * 60 * 60 * 24));
 
-    // res.status(200).json({
-    //   success: true,
-    //   job,
-    // });
     res.render("userView/job-details", {
       job,
       postedDaysAgo: postedDaysAgo === 0 ? "Today" : postedDaysAgo
@@ -361,7 +352,6 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
 
-    // 🔐 SECURITY: ensure company owns this job
     if (application.job.companyId !== req.company.companyId) {
       return res.status(403).json({
         success: false,
@@ -386,10 +376,6 @@ export const updateApplicationStatus = async (req, res) => {
   }
 };
 
-
-/* ===============================
-   SHOW EDIT JOB PAGE
-================================ */
 export const editJobPage = async (req, res) => {
   try {
     const job = await Job.findOne({
@@ -412,9 +398,6 @@ export const editJobPage = async (req, res) => {
   }
 };
 
-/* ===============================
-   UPDATE JOB
-================================ */
 export const updateJob = async (req, res) => {
   try {
     const result = await new Promise((resolve, reject) => {
@@ -435,7 +418,6 @@ export const updateJob = async (req, res) => {
       return res.status(404).send("Job not found");
     }
 
-    // Only update fields that are changed
     const updatableFields = [
       "title",
       "category",
@@ -452,8 +434,6 @@ export const updateJob = async (req, res) => {
         job[field] = req.body[field];
       }
     });
-
-    // Update logo only if new file uploaded
     if (req.file) {
       job.companyLogo = result.secure_url;
     }
@@ -473,7 +453,6 @@ export const deleteJob = async (req, res) => {
   try {
     const { jobId } = req.params;
 
-    // 1️⃣ Find job by jobId (not _id)
     const job = await Job.findOne({ jobId });
 
     if (!job) {
@@ -481,18 +460,13 @@ export const deleteJob = async (req, res) => {
         message: "Job not found"
       });
     }
-
-    // 2️⃣ Security check (only owner company can delete)
     if (job.companyId !== req.company.companyId) {
       return res.status(403).render("error", {
         message: "Unauthorized access"
       });
     }
-
-    // 3️⃣ Delete job
     await Job.deleteOne({ jobId });
 
-    // 4️⃣ Redirect back to jobs list
     res.redirect("/company/get-all-jobs");
 
   } catch (error) {
