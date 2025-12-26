@@ -16,15 +16,15 @@ export const googleCallback = (req, res)=>{
     const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
     res.cookie("token", token, {
         httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
+        secure: true,
+        sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
     });
     res.redirect(process.env.CLIENT_URL);
 }
 
 export const loginFailure = (req, res) => {
-  res.status(401).json({ success: false, message: "Failed to authenticate with Google 😢" });
+  res.status(401).json({ success: false, message: "Failed to authenticate with Google" });
 };
 
 export const signup = async (req, res) => {
