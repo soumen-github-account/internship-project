@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Post Job</title>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+          sans: ["Inter", "sans-serif"],
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 py-10 px-4">
+
+  <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-8">
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Post a New Job</h1>
+      <p class="text-gray-500 mt-1">Fill out the details below to create a job listing</p>
+    </div>
+
+    <form
+      action="/company/create"
+      method="POST"
+      enctype="multipart/form-data"
+      class="space-y-10"
+    >
+
+      <!-- Job Info -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Job Information</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input name="jobId" required placeholder="Job ID (e.g. JOB001)" class="input" />
+          <input name="title" required placeholder="Job Title" class="input" />
+
+          <input name="category" required placeholder="Category (Designer, Developer)" class="input" />
+
+          <select name="jobType" required class="input">
+            <option value="">Select Job Type</option>
+            <option value="Internship">Internship</option>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Remote">Remote</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Company Info -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Company Details</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input name="companyName" placeholder="Company Name" class="input" />
+          <input name="companyType" placeholder="Company Type (Startup / NGO)" class="input" />
+        </div>
+
+        <div class="mt-4">
+          <label class="block text-sm font-medium text-gray-600 mb-1">
+            Company Logo
+          </label>
+          <input
+            type="file"
+            name="companyLogo"
+            required
+            accept="image/*"
+            class="file-input"
+          />
+        </div>
+      </section>
+
+      <!-- Address -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Company Address</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input name="street" placeholder="Street" class="input" />
+          <input name="city" placeholder="City" class="input" />
+          <input name="state" placeholder="State" class="input" />
+          <input name="country" placeholder="Country" class="input" />
+          <input name="pincode" placeholder="Pincode" class="input" />
+        </div>
+      </section>
+
+      <!-- Job Details -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Job Details</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input name="location" required placeholder="Location (Remote / City)" class="input" />
+          <input name="duration" placeholder="Duration" class="input" />
+          <input name="stipend" placeholder="Stipend" class="input" />
+          <input type="date" name="startDate" class="input" />
+          <input type="date" name="applyBy" class="input" />
+          <input type="number" name="openings" min="1" placeholder="Number of Openings" class="input" />
+        </div>
+      </section>
+
+      <!-- Text Areas -->
+      <section class="space-y-4">
+        <textarea
+          name="aboutWork"
+          required
+          placeholder="About the work (comma separated)"
+          class="textarea"
+        ></textarea>
+
+        <textarea
+          name="skillsRequired"
+          required
+          placeholder="Skills Required (comma separated)"
+          class="textarea"
+        ></textarea>
+
+        <textarea
+          name="perks"
+          placeholder="Perks (comma separated)"
+          class="textarea"
+        ></textarea>
+
+        <textarea
+          name="whoCanApply"
+          placeholder="Who Can Apply (comma separated)"
+          class="textarea"
+        ></textarea>
+      </section>
+
+      <!-- Company Stats -->
+      <section>
+        <h2 class="text-lg font-semibold text-gray-700 mb-4">Company Stats</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input name="hiringSince" placeholder="Hiring Since" class="input" />
+          <input type="number" name="opportunitiesPosted" placeholder="Opportunities Posted" class="input" />
+          <input type="number" name="candidatesHired" placeholder="Candidates Hired" class="input" />
+        </div>
+
+        <textarea
+          name="companyDescription"
+          placeholder="Company Description"
+          class="textarea mt-4"
+        ></textarea>
+      </section>
+
+      <!-- Submit -->
+      <div class="pt-6">
+        <button
+          type="submit"
+          class="w-full md:w-auto bg-pink-600 hover:bg-pink-700 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition"
+        >
+          Post Job
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>

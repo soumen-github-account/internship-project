@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+    <title>Job Details</title>
+</head>
+<body>
+    <%- include('../shared/Navbar') %>
+    <section class="px-4 pb-10 pt-5 max-sm:pb-20">
+        <h1 class="text-2xl sm:text-3xl font-bold text-center mb-6">
+            <%= job.title %>
+        </h1>
+
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg border">
+
+            <!-- Header -->
+            <div class="p-6 sm:p-8 border-b">
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-4">
+
+                <div class="w-full">
+                    <div class="flex items-center justify-between w-full">
+                        <h2 class="text-xl font-semibold"><%= job.title %></h2>
+                        <img src="<%= job.companyLogo %>" class="w-14 h-14 object-contain border rounded-lg" />   
+                    </div>
+                <p class="text-gray-600 mt-1 flex gap-2 items-center">
+                    <%= job.companyName %>
+                    <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">
+                    <%= job.companyType %>
+                    </span>
+                </p>
+
+                <span class="text-gray-500 mt-1 flex gap-2 items-center">
+                    <i class="fi fi-sr-map-pin"></i>
+                    <p><%= job.location %></p>
+                </span>
+                </div>
+
+            </div>
+
+            <div class="flex gap-2 mt-4">
+                <span class="px-3 py-1 text-xs bg-pink-50 text-pink-700 rounded-full">
+                Posted <%= postedDaysAgo %> <%= postedDaysAgo !== "Today" ? "days ago" : "" %>
+                </span>
+                <span class="px-3 py-1 text-xs bg-gray-100 rounded-full">
+                <%= job.jobType %>
+                </span>
+            </div>
+            <div class="w-full flex justify-end max-sm:hidden">
+                <a href="/apply.html?jobId=<%= job.jobId %>" class="bg-pink-600 text-white rounded-md px-8 py-2 text-[14px] hover:bg-pink-700 transition duration-200">Apply</a>
+            </div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 p-6 sm:p-8 text-sm">
+            <div><p class="text-gray-400 text-xs">Start Date</p><p><%= job.startDate %></p></div>
+            <div><p class="text-gray-400 text-xs">Duration</p><p><%= job.duration %></p></div>
+            <div><p class="text-gray-400 text-xs">Stipend</p><p><%= job.stipend %></p></div>
+            <div><p class="text-gray-400 text-xs">Apply By</p><p><%= job.applyBy %></p></div>
+            </div>
+
+            <div class="px-6 sm:px-8 text-sm text-gray-600 flex items-center gap-2">
+            <i class="fi fi-sr-users"></i>
+            <p><%= job.applicants %> applicants</p> 
+            </div>
+
+            <!-- Content -->
+            <div class="px-6 sm:px-8 pb-10 space-y-8">
+
+            <section>
+                <h3 class="text-lg font-semibold mt-4">About the internship</h3>
+                <ol class="list-decimal ml-5 mt-2 space-y-1">
+                <% job.aboutWork.forEach(item => { %>
+                    <li><%= item %></li>
+                <% }) %>
+                </ol>
+            </section>
+
+            <section>
+                <h3 class="text-lg font-semibold">Skill(s) required</h3>
+                <div class="flex flex-wrap gap-2 mt-2">
+                <% job.skillsRequired.forEach(skill => { %>
+                    <span class="bg-gray-100 px-3 py-1 rounded-full text-sm">
+                    <%= skill %>
+                    </span>
+                <% }) %>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-lg font-semibold">Who can apply</h3>
+                <ol class="list-decimal ml-5 mt-2 space-y-1">
+                <% job.whoCanApply.forEach(item => { %>
+                    <li><%= item %></li>
+                <% }) %>
+                </ol>
+            </section>
+
+            <section>
+                <h3 class="text-lg font-semibold">Perks</h3>
+                <div class="flex flex-wrap gap-2 mt-2">
+                <% job.perks.forEach(perk => { %>
+                    <span class="bg-gray-100 px-4 py-1 rounded-full text-sm">
+                    <%= perk %>
+                    </span>
+                <% }) %>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-lg font-semibold">About <%= job.companyName %></h3>
+                <p class="mt-2 text-gray-700 leading-relaxed">
+                <%= job.aboutCompany.description %>
+                </p>
+            </section>
+
+            </div>
+        </div>
+
+        <!-- Sticky Apply Button (Mobile) -->
+        <div class="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t p-3">
+            <a href="/apply/<%= job.jobId %>"
+            class="block text-center bg-pink-600 text-white py-2 rounded-full">
+            Apply Now
+            </a>
+        </div>
+
+        </section>
+
+</body>
+</html>

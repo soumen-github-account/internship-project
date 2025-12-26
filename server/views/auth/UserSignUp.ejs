@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Document</title>
+</head>
+<body class="flex justify-center mt-20">
+    <div class="bg-white text-gray-500 max-w-96 mx-4 md:p-6 p-4 text-left text-sm rounded-xl shadow-[0px_0px_10px_0px] shadow-black/10">
+        <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Sign Up</h2>
+        <form id="signupForm">
+            <input id="name" name="name" class="w-full bg-transparent border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="text" placeholder="Enter your name" required>
+            <input id="email" name="email" class="w-full bg-transparent border my-3 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="email" placeholder="Enter your email" required>
+            <input id="password" name="password" class="w-full bg-transparent border mt-1 border-gray-500/30 outline-none rounded-full py-2.5 px-4" type="password" placeholder="Enter your password" required>
+            <!-- <div class="text-right py-4">
+                <a class="text-pink-800 underline" href="#">Forgot Password</a>
+            </div> -->
+            <button type="submit" class="w-full mt-3 bg-pink-800 py-2.5 rounded-full text-white">Sign up</button>
+        </form>
+        <p class="text-center mt-4">already have an account? <a href="/login" class="text-pink-800 underline">Login</a></p>
+        <button onclick="window.location.href='/auth/google'" type="button" class="w-full flex items-center gap-2 justify-center my-3 bg-white border border-gray-500/30 py-2.5 rounded-full text-gray-800">
+            <img class="h-4 w-4" src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleFavicon.png" alt="googleFavicon">
+            Sign up with Google
+        </button>
+    </div>
+
+  <script src="/script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Company Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+      <!-- Company Info -->
+      <div class="flex items-center gap-3">
+        <img
+          src="<%= company.logo || 'https://cdn-icons-png.flaticon.com/512/5968/5968705.png' %>"
+          alt="Company Logo"
+          class="h-10 w-10 rounded-lg"
+        />
+        <h1 class="text-lg sm:text-xl font-bold text-gray-800">
+          <%= company.name %> — Admin
+        </h1>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-5">
+        <a href="/company/get-all-jobs" class="text-gray-600 hover:underline">
+          All Jobs
+        </a>
+
+        <a href="/company/post-job"
+          class="rounded-full px-5 py-1 border-2 border-pink-600 text-pink-500 text-xs font-bold">
+          Post Job
+        </a>
+
+        <form action="/company/logout" method="POST"
+              onsubmit="return confirm('Are you sure logout ?');">
+          <button class="text-red-500 font-semibold hover:underline">
+            Logout
+          </button>
+        </form>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuBtn" class="md:hidden text-2xl">
+        <i class="fi fi-rr-menu-burger"></i>
+      </button>
+      <button id="crossBtn" class="md:hidden text-2xl hidden">
+        <i class="fi fi-br-cross"></i>
+      </button>
+    </div>
+
+    <!-- ===== MOBILE MENU ===== -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-4">
+
+      <a href="/company/get-all-jobs"
+        class="block text-gray-700 font-medium text-center border-2 border-gray-200 py-1 rounded-full">
+        All Jobs
+      </a>
+
+      <a href="/company/post-job"
+        class="block text-center rounded-full px-4 py-1 border-2 border-pink-600 text-pink-500 text-sm font-bold">
+        Post Job
+      </a>
+
+      <form action="/company/logout" method="POST"
+            onsubmit="return confirm('Are you sure logout ?');">
+        <button class="w-full bg-red-500 rounded-full py-2 font-semibold text-center text-white">
+          Logout
+        </button>
+      </form>
+
+    </div>
+  </nav>
+
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Page Heading -->
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">User Applications</h2>
+      <p class="text-gray-500">Manage job applications submitted by users</p>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="text-gray-500 text-sm">Total Applications</h3>
+        <p class="text-3xl font-bold text-gray-800 mt-2">
+          <%= total %>
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="text-gray-500 text-sm">Pending</h3>
+        <p class="text-3xl font-bold text-yellow-500 mt-2">
+          <%= pending %>
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="text-gray-500 text-sm">Accepted</h3>
+        <p class="text-3xl font-bold text-green-600 mt-2">
+          <%= accepted %>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ===== APPLICATIONS TABLE ===== -->
+    <div class="bg-white rounded-xl shadow overflow-x-auto">
+
+      <table class="min-w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Candidate</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Job Role</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Email</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Applied On</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Status</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">Action</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y">
+
+          <% if (applications.length === 0) { %>
+            <tr>
+              <td colspan="6" class="text-center py-6 text-gray-500">
+                No applications found
+              </td>
+            </tr>
+          <% } %>
+
+          <% applications.forEach(app => { %>
+            <tr class="hover:bg-gray-50">
+
+              <td class="px-6 py-4 font-medium">
+                <%= app.fullName %>
+              </td>
+
+              <td class="px-6 py-4">
+                <%= app.job ? app.job.title : 'Job Deleted' %>
+              </td>
+
+              <td class="px-6 py-4">
+                <%= app.email %>
+              </td>
+
+              <td class="px-6 py-4 text-sm text-gray-500">
+                <%= new Date(app.createdAt).toDateString() %>
+              </td>
+
+              <td class="px-6 py-4">
+                <span class="px-3 py-1 text-sm rounded-full
+                  <%= app.status === 'accepted'
+                      ? 'bg-green-100 text-green-700'
+                      : app.status === 'rejected'
+                      ? 'bg-red-100 text-red-700'
+                      : 'bg-yellow-100 text-yellow-700' %>">
+                  <%= app.status %>
+                </span>
+              </td>
+
+              <td class="px-6 py-4">
+                <select
+                  class="border rounded-lg px-3 py-2 text-sm"
+                  onchange="updateStatus('<%= app._id %>', this.value)"
+                >
+                  <option value="applied" <%= app.status === 'applied' ? 'selected' : '' %>>
+                    Pending
+                  </option>
+                  <option value="accepted" <%= app.status === 'accepted' ? 'selected' : '' %>>
+                    Accepted
+                  </option>
+                  <option value="rejected" <%= app.status === 'rejected' ? 'selected' : '' %>>
+                    Rejected
+                  </option>
+                </select>
+              </td>
+
+            </tr>
+          <% }) %>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </main>
+
+  <!-- ===== JS ===== -->
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const crossBtn = document.getElementById("crossBtn");
+
+    // menuBtn?.addEventListener("click", () => {
+    //     mobileMenu.classList.toggle("hidden");
+    // });
+    menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.remove("hidden");
+        menuBtn.classList.add("hidden");
+        crossBtn.classList.remove("hidden");
+    });
+
+    crossBtn.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+        crossBtn.classList.add("hidden");
+        menuBtn.classList.remove("hidden");
+    });
+
+    
+    async function updateStatus(applicationId, status) {
+      try {
+        const res = await fetch(
+          `/company/applications/${applicationId}/status`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status })
+          }
+        );
+
+        const data = await res.json();
+
+        if (!data.success) {
+          alert("Failed to update status");
+        }
+        location.reload();
+      } catch (err) {
+        alert("Server error");
+      }
+    }
+  </script>
+
+</body>
+</html>

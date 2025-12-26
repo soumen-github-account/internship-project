@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Apply Job</title>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center p-4">
+
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl p-8">
+
+    <!-- Header -->
+    <div class="mb-6 text-center">
+      <h1 class="text-2xl font-bold text-gray-800">Job Application</h1>
+      <p class="text-gray-500 text-sm mt-1">
+        Fill in your details to apply for this position
+      </p>
+    </div>
+
+    <!-- Form -->
+    <form id="applyForm" class="space-y-5" enctype="multipart/form-data">
+
+      <input type="hidden" id="jobId" />
+
+      <!-- Full Name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        <input
+          type="text"
+          name="fullName"
+          id="fullName"
+          required
+          class="w-full rounded-lg border px-4 py-2.5"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          class="w-full rounded-lg border px-4 py-2.5"
+        />
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+        <input
+          type="text"
+          name="phone"
+          id="phone"
+          required
+          class="w-full rounded-lg border px-4 py-2.5"
+        />
+      </div>
+
+      <!-- Resume -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Upload Resume</label>
+        <input
+          type="file"
+          name="resume"
+          id="resume"
+          accept=".pdf,.jpg,.jpeg,.png"
+          required
+          class="w-full text-sm"
+        />
+      </div>
+
+      <!-- Cover Letter -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Cover Letter</label>
+        <textarea
+          name="coverLetter"
+          id="coverLetter"
+          rows="4"
+          class="w-full rounded-lg border px-4 py-2.5 resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Submit -->
+      <button
+        id="submitBtn"
+        type="submit"
+        class="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+      >
+        <span id="btnText">Submit Application</span>
+        <span
+          id="loader"
+          class="hidden h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"
+        ></span>
+      </button>
+
+
+    </form>
+  </div>
+
+  <script src="/apply.js"></script>
+</body>
+</html>

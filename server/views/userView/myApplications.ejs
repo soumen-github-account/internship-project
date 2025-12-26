@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Applications</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Container -->
+  <div class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold text-gray-800">
+        Welcome, <span class="text-indigo-600"><%= user?.name %></span>
+      </h2>
+      <p class="text-gray-500 mt-1">Here are the jobs you have applied for</p>
+    </div>
+
+    <!-- Empty State -->
+    <% if (applications.length === 0) { %>
+      <div class="bg-white rounded-xl shadow-md p-10 text-center">
+        <p class="text-gray-500 text-lg">🚫 No applications found</p>
+      </div>
+    <% } %>
+
+    <!-- Applications List -->
+    <div class="grid gap-6">
+      <% applications.forEach(app => { %>
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition p-6 border border-gray-100">
+
+          <!-- Job Title -->
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <%= app.job.title %>
+          </h3>
+
+          <!-- Company -->
+          <p class="text-gray-600">
+            <span class="font-medium">Company:</span>
+            <%= app.job.companyName %>
+          </p>
+
+          <!-- Status + Date -->
+          <div class="flex flex-wrap items-center justify-between mt-4 gap-3">
+
+            <!-- Status Badge -->
+            <span
+              class="px-3 py-1 text-sm font-semibold rounded-full
+              <%= app.status === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
+                  app.status === 'Accepted' ? 'bg-green-100 text-green-700' :
+                  'bg-red-100 text-red-700' %>">
+              <%= app.status %>
+            </span>
+
+            <!-- Applied Date -->
+            <p class="text-sm text-gray-500">
+              Applied on:
+              <span class="font-medium text-gray-700">
+                <%= app.createdAt.toDateString() %>
+              </span>
+            </p>
+
+          </div>
+
+        </div>
+      <% }) %>
+    </div>
+
+  </div>
+
+</body>
+</html>

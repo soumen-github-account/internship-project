@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Job</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-800">
+      <%= company.name %> — Edit Job
+    </h1>
+    <a href="/company/get-all-jobs" class="text-blue-600 hover:underline">
+      Back
+    </a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="max-w-3xl mx-auto px-6 py-8">
+
+  <form
+    action="/company/jobs/<%= job.jobId %>/edit"
+    method="POST"
+    enctype="multipart/form-data"
+    class="bg-white p-6 rounded-xl shadow space-y-4"
+  >
+
+    <div>
+      <label class="label">Job Title</label>
+      <input class="input" name="title" value="<%= job.title %>" />
+    </div>
+
+    <div>
+      <label class="label">Category</label>
+      <input class="input" name="category" value="<%= job.category %>" />
+    </div>
+
+    <div>
+      <label class="label">Location</label>
+      <input class="input" name="location" value="<%= job.location %>" />
+    </div>
+
+    <div>
+      <label class="label">Duration</label>
+      <input class="input" name="duration" value="<%= job.duration %>" />
+    </div>
+
+    <div>
+      <label class="label">Stipend</label>
+      <input class="input" name="stipend" value="<%= job.stipend %>" />
+    </div>
+
+    <div>
+      <label class="label">Job Type</label>
+      <select name="jobType" class="input">
+        <option value="Full-time" <%= job.jobType === "Full-time" ? "selected" : "" %>>Full-time</option>
+        <option value="Part-time" <%= job.jobType === "Part-time" ? "selected" : "" %>>Part-time</option>
+        <option value="Internship" <%= job.jobType === "Internship" ? "selected" : "" %>>Internship</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="label">Openings</label>
+      <input type="number" class="input" name="openings" value="<%= job.openings %>" />
+    </div>
+
+    <div>
+      <label class="label">Apply By</label>
+      <input type="date" class="input" name="applyBy" value="<%= job.applyBy %>" />
+    </div>
+
+    <div>
+      <label class="label">Company Logo</label>
+      <input type="file" name="companyLogo" />
+      <% if (job.companyLogo) { %>
+        <img src="<%= job.companyLogo %>" class="h-12 mt-2 rounded" />
+      <% } %>
+    </div>
+
+    <button class="w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700">
+      Update Job
+    </button>
+
+  </form>
+
+</main>
+
+<style>
+  .input {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    padding: 8px;
+    border-radius: 6px;
+  }
+  .label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+</style>
+
+</body>
+</html>
