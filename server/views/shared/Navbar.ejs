@@ -12,22 +12,14 @@
 
 <body class="bg-white">
 
-<!-- ===== TOP BAR ===== -->
-<div class="w-full py-2 text-center text-white text-sm font-medium
-            bg-gradient-to-r from-violet-500 via-[#9938CA] to-[#E0724A]">
+<div class="w-full py-2 text-center text-white text-sm font-medium bg-gradient-to-r from-violet-500 via-[#9938CA] to-[#E0724A]">
   📢 Limited Openings! Apply Before Positions Fill Up
 </div>
 
-<!-- ===== NAVBAR ===== -->
 <nav class="w-full border-b border-gray-200 sticky top-0 z-50 bg-white">
-  <div class="flex items-center justify-between
-              px-4 py-2.5 sm:px-6 md:px-10 lg:px-16 xl:px-24">
+  <div class="flex items-center justify-between px-4 py-2.5 sm:px-6 md:px-10 lg:px-16 xl:px-24">
+    <img src="/images/logo.jpeg" class="w-32 sm:w-36 md:w-40 cursor-pointer" />
 
-    <!-- Logo -->
-    <img src="/images/logo.jpeg"
-         class="w-32 sm:w-36 md:w-40 cursor-pointer" />
-
-    <!-- ===== Desktop Auth (Before Login) ===== -->
     <div id="auth-buttons" class="hidden md:flex items-center gap-3">
       <a href="/sign-up">
         <button class="px-6 py-2.5 bg-slate-800 text-white rounded-full text-sm">
@@ -41,16 +33,13 @@
         </button>
       </a>
 
-      <a href="/company/dashboard"
-         class="px-4 py-2 text-pink-600 border-2 border-pink-600 rounded-full text-sm">
+      <a href="/company/dashboard" class="px-4 py-2 text-pink-600 border-2 border-pink-600 rounded-full text-sm">
         Admin
       </a>
     </div>
 
-    <!-- ===== Desktop User (After Login) ===== -->
     <div id="user-info" class="hidden md:flex items-center gap-3">
-      <a href="/api/user/myApplications"
-         class="bg-pink-600 text-white px-5 py-2 rounded-full text-sm">
+      <a href="/api/user/myApplications" class="bg-pink-600 text-white px-5 py-2 rounded-full text-sm">
         Applications
       </a>
 
@@ -58,13 +47,11 @@
         Welcome, <span id="username"></span>
       </span>
 
-      <button id="logoutBtn"
-              class="px-5 py-2 bg-red-600 text-white rounded-full text-sm">
+      <button id="logoutBtn" class="px-5 py-2 bg-red-600 text-white rounded-full text-sm">
         Logout
       </button>
     </div>
 
-    <!-- Mobile Menu Button -->
     <button id="menuBtn" class="md:hidden text-2xl">
     <i class="fi fi-rr-menu-burger"></i>
     </button>
@@ -73,10 +60,7 @@
     </button>
   </div>
 
-  <!-- ===== MOBILE MENU ===== -->
   <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-3">
-
-    <!-- Mobile Auth (Before Login) -->
     <div id="mobile-auth-buttons" class="space-y-3">
       <a href="/sign-up">
         <button class="w-full py-2 bg-slate-800 text-white rounded-full">
@@ -90,21 +74,17 @@
         </button>
       </a>
 
-      <a href="/company/dashboard"
-         class="block text-center py-2 border-2 border-pink-600 text-pink-600 rounded-full">
+      <a href="/company/dashboard" class="block text-center py-2 border-2 border-pink-600 text-pink-600 rounded-full">
         Admin
       </a>
     </div>
 
-    <!-- Mobile User (After Login) -->
     <div id="mobile-user-info" class="hidden space-y-3">
-      <a href="/api/user/myApplications"
-         class="block text-center bg-pink-600 text-white py-2 rounded-full">
+      <a href="/api/user/myApplications" class="block text-center bg-pink-600 text-white py-2 rounded-full">
         Applications
       </a>
 
-      <button id="mobileLogoutBtn"
-              class="w-full py-2 bg-red-600 text-white rounded-full">
+      <button id="mobileLogoutBtn" class="w-full py-2 bg-red-600 text-white rounded-full">
         Logout
       </button>
     </div>
@@ -130,7 +110,6 @@
         crossBtn.classList.add("hidden");
         menuBtn.classList.remove("hidden");
     });
-
 </script>
 <script src="/script.js"></script>
 </body>

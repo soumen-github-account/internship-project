@@ -8,10 +8,7 @@
 </head>
 
 <body class="flex justify-center mt-20 bg-gray-100">
-
   <div class="rounded-xl border border-gray-200 bg-white py-8 px-6 min-w-[400px] max-w-[500px] shadow">
-
-    <!-- Icon -->
     <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
       <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor"
         viewBox="0 0 24 24">
@@ -24,79 +21,38 @@
       Company Sign Up
     </h3>
 
-    <!-- FORM -->
-    <form
-      action="/company/signup"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-
-      <!-- Company Name -->
+    <form action="/company/signup" method="POST" enctype="multipart/form-data" >
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Company Name</label>
-        <input
-          type="text"
-          name="name"
-          required
-          class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
-        />
+        <input type="text" name="name" required class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- Company Email -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Company Email</label>
-        <input
-          type="email"
-          name="email"
-          required
-          class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
-        />
+        <input type="email" name="email" required class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <!-- Company ID -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">Company ID</label>
-        <input
-          type="text"
-          name="companyId"
-          required
-          class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
-        />
+        <input type="text" name="companyId" required class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"/>
       </div>
 
-      <!-- Company Logo Upload -->
       <div class="mb-4">
         <label class="block text-sm font-medium text-gray-700">
           Company Logo
         </label>
-        <input
-          type="file"
-          name="logo"
-          accept="image/*"
-          required
-          class="w-full text-sm"
-        />
+        <input type="file" name="logo" accept="image/*" required class="w-full text-sm" />
       </div>
 
-      <!-- Password -->
       <div class="mb-6">
         <label class="block text-sm font-medium text-gray-700">Password</label>
-        <input
-          type="password"
-          name="password"
-          required
-          class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500"
-        />
+        <input type="password" name="password" required class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500" />
       </div>
 
-      <button
-        type="submit"
-        class="w-full rounded-lg bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600"
-      >
+      <button type="submit" class="w-full rounded-lg bg-blue-500 px-4 py-2 font-medium text-white hover:bg-blue-600">
         Sign Up
       </button>
     </form>
   </div>
-
 </body>
 </html>

@@ -20,21 +20,12 @@
 <body class="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 py-10 px-4">
 
   <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-8">
-
-    <!-- Header -->
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-800">Post a New Job</h1>
       <p class="text-gray-500 mt-1">Fill out the details below to create a job listing</p>
     </div>
 
-    <form
-      action="/company/create"
-      method="POST"
-      enctype="multipart/form-data"
-      class="space-y-10"
-    >
-
-      <!-- Job Info -->
+    <form action="/company/create" method="POST" enctype="multipart/form-data" class="space-y-10">
       <section>
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Job Information</h2>
 
@@ -55,7 +46,6 @@
         </div>
       </section>
 
-      <!-- Company Info -->
       <section>
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Company Details</h2>
 
@@ -68,17 +58,10 @@
           <label class="block text-sm font-medium text-gray-600 mb-1">
             Company Logo
           </label>
-          <input
-            type="file"
-            name="companyLogo"
-            required
-            accept="image/*"
-            class="file-input"
-          />
+          <input type="file" name="companyLogo" required accept="image/*" class="file-input" />
         </div>
       </section>
 
-      <!-- Address -->
       <section>
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Company Address</h2>
 
@@ -91,7 +74,6 @@
         </div>
       </section>
 
-      <!-- Job Details -->
       <section>
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Job Details</h2>
 
@@ -105,7 +87,6 @@
         </div>
       </section>
 
-      <!-- Text Areas -->
       <section class="space-y-4">
         <textarea
           name="aboutWork"
@@ -134,7 +115,6 @@
         ></textarea>
       </section>
 
-      <!-- Company Stats -->
       <section>
         <h2 class="text-lg font-semibold text-gray-700 mb-4">Company Stats</h2>
 
@@ -151,7 +131,6 @@
         ></textarea>
       </section>
 
-      <!-- Submit -->
       <div class="pt-6">
         <button
           type="submit"
@@ -160,7 +139,6 @@
           Post Job
         </button>
       </div>
-
     </form>
   </div>
 

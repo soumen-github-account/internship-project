@@ -11,23 +11,19 @@
 
 <body class="bg-gray-100 min-h-screen">
 
-  <!-- ===== NAVBAR ===== -->
   <nav class="bg-white shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-      <!-- Company Info -->
       <div class="flex items-center gap-3">
         <img
           src="<%= company.logo || 'https://cdn-icons-png.flaticon.com/512/5968/5968705.png' %>"
           alt="Company Logo"
-          class="h-10 w-10 rounded-lg"
-        />
+          class="h-10 w-10 rounded-lg" />
         <h1 class="text-lg sm:text-xl font-bold text-gray-800">
           <%= company.name %> — Admin
         </h1>
       </div>
 
-      <!-- Desktop Menu -->
       <div class="hidden md:flex items-center gap-5">
         <a href="/company/get-all-jobs" class="text-gray-600 hover:underline">
           All Jobs
@@ -46,7 +42,6 @@
         </form>
       </div>
 
-      <!-- Mobile Menu Button -->
       <button id="menuBtn" class="md:hidden text-2xl">
         <i class="fi fi-rr-menu-burger"></i>
       </button>
@@ -55,21 +50,17 @@
       </button>
     </div>
 
-    <!-- ===== MOBILE MENU ===== -->
     <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-4">
 
-      <a href="/company/get-all-jobs"
-        class="block text-gray-700 font-medium text-center border-2 border-gray-200 py-1 rounded-full">
+      <a href="/company/get-all-jobs" class="block text-gray-700 font-medium text-center border-2 border-gray-200 py-1 rounded-full">
         All Jobs
       </a>
 
-      <a href="/company/post-job"
-        class="block text-center rounded-full px-4 py-1 border-2 border-pink-600 text-pink-500 text-sm font-bold">
+      <a href="/company/post-job" class="block text-center rounded-full px-4 py-1 border-2 border-pink-600 text-pink-500 text-sm font-bold">
         Post Job
       </a>
 
-      <form action="/company/logout" method="POST"
-            onsubmit="return confirm('Are you sure logout ?');">
+      <form action="/company/logout" method="POST" onsubmit="return confirm('Are you sure logout ?');">
         <button class="w-full bg-red-500 rounded-full py-2 font-semibold text-center text-white">
           Logout
         </button>
@@ -78,17 +69,12 @@
     </div>
   </nav>
 
-
-  <!-- ===== MAIN CONTENT ===== -->
   <main class="max-w-7xl mx-auto px-6 py-8">
-
-    <!-- Page Heading -->
     <div class="mb-6">
       <h2 class="text-2xl font-bold text-gray-800">User Applications</h2>
       <p class="text-gray-500">Manage job applications submitted by users</p>
     </div>
 
-    <!-- ===== STATS ===== -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
 
       <div class="bg-white p-6 rounded-xl shadow">
@@ -114,7 +100,6 @@
 
     </div>
 
-    <!-- ===== APPLICATIONS TABLE ===== -->
     <div class="bg-white rounded-xl shadow overflow-x-auto">
 
       <table class="min-w-full">
@@ -170,10 +155,7 @@
               </td>
 
               <td class="px-6 py-4">
-                <select
-                  class="border rounded-lg px-3 py-2 text-sm"
-                  onchange="updateStatus('<%= app._id %>', this.value)"
-                >
+                <select class="border rounded-lg px-3 py-2 text-sm" onchange="updateStatus('<%= app._id %>', this.value)" >
                   <option value="applied" <%= app.status === 'applied' ? 'selected' : '' %>>
                     Pending
                   </option>
@@ -196,7 +178,6 @@
 
   </main>
 
-  <!-- ===== JS ===== -->
   <script>
     const menuBtn = document.getElementById("menuBtn");
     const mobileMenu = document.getElementById("mobileMenu");
