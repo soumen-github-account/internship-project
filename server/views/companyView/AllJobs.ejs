@@ -16,8 +16,6 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen p-6">
-
-  <!-- Header -->
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-2xl font-bold text-gray-800">
       All Jobs
@@ -29,27 +27,18 @@
   </div>
 
   <% if (jobs.length === 0) { %>
-    <!-- Empty State -->
     <div class="bg-white p-8 rounded-xl text-center shadow">
       <p class="text-gray-500">No jobs posted yet.</p>
     </div>
   <% } else { %>
 
-  <!-- Jobs Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
     <% jobs.forEach(job => { %>
 
       <div class="bg-white rounded-2xl shadow hover:shadow-lg transition p-5 flex flex-col">
-
-        <!-- Company -->
         <div class="flex items-center gap-3 mb-4">
-          <img
-            src="<%= job.companyLogo || 'https://via.placeholder.com/48' %>"
-            alt="logo"
-            class="w-12 h-12 rounded-full object-cover border"
-          />
-
+          <img src="<%= job.companyLogo || 'https://via.placeholder.com/48' %>" alt="logo" class="w-12 h-12 rounded-full object-cover border" />
           <div>
             <h3 class="font-semibold text-gray-800">
               <%= job.title %>
@@ -60,7 +49,6 @@
           </div>
         </div>
 
-        <!-- Job Info -->
         <div class="space-y-2 text-[15px] text-gray-600">
           <span class="flex items-center gap-2"><i class="fi fi-sr-map-pin"></i> <p><%= job.location %></p></span>
           <span class="flex items-center gap-2"><i class="fi fi-sr-clock-three"></i> <p>Duration: <%= job.duration %></p></span>
@@ -68,7 +56,6 @@
           <span class="flex items-center gap-2"><i class="fi fi-sr-usd-circle"></i> <p>Stipend: <%= job.stipend %></p></span>
         </div>
 
-        <!-- Skills -->
         <% if (job.skillsRequired?.length) { %>
           <div class="flex flex-wrap gap-2 mt-4">
             <% job.skillsRequired.slice(0,4).forEach(skill => { %>
@@ -79,18 +66,13 @@
           </div>
         <% } %>
 
-        <!-- Stats -->
         <div class="flex justify-between mt-4 text-sm text-gray-500">
           <span class="flex items-center gap-2"><i class="fi fi-sr-users"></i> <p>Applicants: <%= job.applicants %></p></span>
           <span class="flex items-center gap-2"><i class="fi fi-ss-thumbtack"></i> <p>Openings: <%= job.openings %></p></span>
         </div>
 
-        <!-- Actions -->
         <div class="mt-5 flex gap-3">
-          <a
-            href="/company/jobs/<%= job.jobId %>/edit"
-            class="flex w-full items-center justify-center py-2 gap-2 text-md rounded-lg border border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white transition"
-          >
+          <a href="/company/jobs/<%= job.jobId %>/edit" class="flex w-full items-center justify-center py-2 gap-2 text-md rounded-lg border border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white transition">
             <i class="fi fi-rr-edit"></i> <p>Edit</p>
           </a>
 

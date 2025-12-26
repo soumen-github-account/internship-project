@@ -1,7 +1,5 @@
 
 document.addEventListener("DOMContentLoaded", () => {
-
- 
   async function loadUser() {
     try {
       const authButtons = document.getElementById("auth-buttons");
@@ -29,12 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       usernameEl && (usernameEl.innerText = data.user.name);
       authButtons && (authButtons.style.display = "none");
-      // userInfo && (userInfo.style.display = "flex");
 
       mobileAuth && mobileAuth.classList.add("hidden");
       mobileUser && mobileUser.classList.remove("hidden");
-
-
     } catch (err) {
       console.error("Load user failed:", err);
     }

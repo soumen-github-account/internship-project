@@ -16,16 +16,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/public", express.static(path.join(process.cwd(), "public")));
 
-// Session setup (required for Passport + Google Auth)
-
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "supersecretkey",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false,// process.env.NODE_ENV === "production", // production only true in prod (HTTPS)
-      sameSite: "Lax", // required when frontend on different domain
+      secure: false,
+      sameSite: "Lax",
       httpOnly: true,
     },
   })
@@ -47,9 +45,6 @@ app.use("/company", companyRouter);
 app.get('/login', (req, res) => {
   res.render('auth/UserLogin'); 
 });
-// app.get('/myApplications', (req, res) => {
-//   res.render('userView/myApplications'); 
-// });
 
 app.get('/sign-up', (req, res) => {
   res.render('auth/UserSignUp'); 
